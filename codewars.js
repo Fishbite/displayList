@@ -1,3 +1,345 @@
+// ****** map, filter, reduce START ******
+// return the first and last letters of each word with the number
+// of letters between them i.e. "good" = "g2d"
+
+function Numeronyms(str) {
+  // re-useable function. Could have imported this as a module
+  // using it makes our `return` code more readable
+  const createEnumeronym = (word) =>
+    word[0] + (word.length - 2) + word[word.length - 1];
+
+  return str
+    .split(" ")
+    .map((v) => (v.length >= 4 ? createEnumeronym(v) : v))
+    .join(" "); //"E3y d7r l3s to mix k8s and j8t"
+}
+console.log(
+  Numeronyms("Every developer likes to mix kubernetes and javascript")
+);
+
+// https://www.crocoder.dev/blog/map-filter-reduce-exercises/
+
+// return youngest & oldest and difference given an array
+// of objects holding names and ages
+function youngOld(arr) {
+  const ages = arr.map((v) => v.age);
+  return [
+    Math.min(...ages),
+    Math.max(...ages),
+    Math.max(...ages) - Math.min(...ages),
+  ];
+}
+/*
+console.log(
+  youngOld([
+    {
+      name: "John",
+      age: 13,
+    },
+    {
+      name: "Mark",
+      age: 56,
+    },
+    {
+      name: "Rachel",
+      age: 45,
+    },
+    {
+      name: "Nate",
+      age: 67,
+    },
+    {
+      name: "Jennifer",
+      age: 65,
+    },
+  ])
+);
+*/
+
+// return the first letter of each name
+function firstLtr(str) {
+  return str
+    .split(" ")
+    .map((v) => v[0])
+    .join("");
+}
+// console.log(firstLtr("George Raymond Richard Martin"));
+
+// calc mean & median:
+// mean = sum of numbers divided by number of numbers i.e. average!
+// median is the middle of a sorted list of numbers
+function meanMedian(arr) {
+  const mean = arr.reduce((acc, curr, i, arr) => acc + curr) / arr.length;
+
+  let median = arr.sort((a, b) => a - b);
+
+  median.median =
+    median.length % 2 === 0
+      ? (median[median.length / 2] + median[median.length / 2 - 1]) / 2
+      : median[Math.ceil(median.length / 2 - 1)];
+
+  console.log(median);
+  return `mean: ${mean} median: ${median.median}`;
+}
+// console.log(meanMedian([12, 46, 32, 64]));
+
+// Sum of every positive element
+// [1, -4, 12, 0, -3, 29, -150];
+// filter positves then reduce by adding each
+// note the start value of zero which prevents an error if arr is empty
+function sumPositives(arr) {
+  return arr.filter((n) => n > 0).reduce((acc, curr) => acc + curr, 0);
+}
+// console.log(sumPositives([]));
+
+// const input = [1, 2, 3, 4, 5]; square every number using `.map()`
+function squares(arr) {
+  return arr.map((n) => Math.pow(n, 2));
+}
+// console.log(squares([1, 2, 3, 4, 5]));
+
+// ****** map, filter, reduce END ******
+
+//  "String" -> "SSttrriinngg"
+function string(str) {
+  let res = "";
+
+  str.split("").forEach((el) => (res += el.repeat(2)));
+
+  return res;
+}
+// one liner!
+const double = (str) =>
+  str
+    .split("")
+    .map((el) => el + el)
+    .join("");
+
+// console.log(string("String"));
+// console.log(double("String"));
+//  draw a diamond:
+/*
+    Input = 5
+       *
+      ***
+     *****
+      ***
+       *
+       
+      "  *\n ***\n*****\n ***\n  *\n"
+*/
+function diamond(n) {
+  return n % 2 === 0 || n < 0 ? null : draw(n);
+
+  function draw(n) {
+    let str = "";
+
+    const mid = Math.floor(n / 2) + 1;
+
+    for (let i = 1; i <= n; i++) {
+      const space = " ";
+      const numSpaces = Math.abs(i - mid);
+
+      const char = "*";
+      const numChars = n - numSpaces * 2;
+
+      str += space.repeat(numSpaces) + char.repeat(numChars) + "\n";
+    }
+    return str;
+  }
+}
+// console.log(diamond(3));
+
+// [1,2,3,4,6,7,8] find first non-consecutive number
+function firstNonConsecutive(arr) {
+  const idx = arr.findIndex(
+    (num, index) => index > 0 && num !== arr[index - 1] + 1
+  );
+
+  return idx !== -1 ? idx : null;
+}
+// console.log(firstNonConsecutive([1, 2, 3, 4, 5, 6, 7, 8]));
+// console.log(10 ** 20);
+
+/*
+    number of hotdogs 	price per unit (cents)
+    n < 5 	100
+    n >= 5 and n < 10 	95
+    n >= 10 	90
+*/
+const saleHotdogs = (n) =>
+  n < 5 ? n * 100 : n >= 5 && n < 10 ? n * 95 : n * 90;
+
+/* string to number
+    "1234" --> 1234
+    "605"  --> 605
+    "1405" --> 1405
+    "-7" --> -7
+*/
+
+function stringToNumber(str) {
+  return Number(str);
+}
+// console.log(stringToNumber("1234"));
+
+// count fuking sheep
+const sheepAtHome = [
+  true,
+  true,
+  true,
+  false,
+  true,
+  true,
+  true,
+  true,
+  true,
+  false,
+  true,
+  false,
+  true,
+  false,
+  false,
+  true,
+  true,
+  true,
+  true,
+  true,
+  undefined,
+  null,
+  true,
+  true,
+];
+
+function countSheep(arr) {
+  let tot = 0;
+  arr.forEach((sheep) => (sheep === true ? tot++ : false));
+
+  return tot;
+}
+
+// console.log(countSheep(sheepAtHome));
+
+// .sort((a, b) => b - a)
+
+//  [1, 2, 3, 4] => 1 * 2 * 3 * 4 = 24
+const grow = (arr) => arr.reduce((acc, curr) => acc * curr);
+
+// console.log(grow([1, 2, 3, 4]));
+
+// alphabetPosition("The sunset sets at twelve o' clock.")
+// return a string with the position of each character in the alphabet
+// charCode minus 96 gives position in alphabet
+function alphabetPosition(str) {
+  // const strLC = str.toLowerCase();
+  const strLC = Array.from(str.toLowerCase());
+
+  return strLC
+    .map((char) => {
+      const charCode = char.charCodeAt();
+      return charCode < 97 || charCode > 122 ? "" : `${charCode - 96} `;
+    })
+    .join("")
+    .trim();
+}
+// 97 - 122 = a-z = -96
+// 65 - 90 = A - Z = -64
+// console.log(alphabetPosition("The sunset sets at twelve o' clock."), 122 - 96);
+
+// return the volume of a cuboid
+const vol = (l, w, h) => l * w * h;
+// console.log(vol(2, 2, 3));
+
+// calculate the number of pages required for n people & m pages
+// return zero if n or m are less than zero
+function numOfPages(n, m) {
+  return n < 0 ? 0 : m < 0 ? 0 : n * m;
+}
+// console.log(numOfPages(5, -5));
+
+// return highest & lowest: highAndLow("1 2 3 4 5");  // return "5 1"
+function highAndLow(str) {
+  const arr = str.split(" ");
+  return `${Math.max(...arr)} ${Math.min(...arr)}`;
+}
+// console.log(highAndLow("1 2 3 4 5"));
+
+// To return odd or even divide by two, check remainder is 0
+const evenOrOdd = (int) => (int % 2 === 0 ? "Even" : "Odd");
+// console.log(evenOrOdd(50));
+
+// return the third interior angle of the triangle
+const otherAngle = (a, b) => 180 - (a + b);
+
+// console.log(otherAngle(90, 60));
+
+// return sum as a number
+function sumMix(arr) {
+  return Number(arr.reduce((a, c) => Number(a) + Number(c)));
+}
+
+// console.log(sumMix(["1", 2, 3, "4", 5]));
+
+// return min and max values from the array
+// All arrays will have at least one element
+/*
+    [1,2,3,4,5] --> [1,5]
+    [2334454,5] --> [5,2334454]
+    [1]         --> [1,1]
+*/
+function minMax(arr) {
+  return [Math.min(...arr), Math.max(...arr)];
+}
+const arr = [5, 5];
+// console.log(minMax(arr));
+
+// test if number is a perfect square
+function isSquare(num) {
+  // check the square root of `num` is an integer
+  return Math.sqrt(num) % 1 === 0;
+}
+const num = 121;
+// console.log(isSquare(num));
+
+/*
+    Each element in the array represents a line of text.
+    Add a line number with a colon and a space
+    [] --> []
+    ["a", "b", "c"] --> ["1: a", "2: b", "3: c"]
+*/
+const input = [
+  "line of text No.1",
+  "line of text No.2",
+  "line of text No.3",
+  "line of text No.4",
+];
+
+function testLineNums(arr) {
+  // add the index No. + 1 plus a colon and a space to each string in the array
+  return arr.map((el, idx) => `${idx + 1}: ${el}`);
+}
+
+// console.log(testLineNums(input));
+
+// count the occurance of letters
+// return {a: 2, b: 1, etc...}
+const str =
+  "Aabaabazzdfeffdabaabazzdfeffdabaabazzdfeffdabaabazzdfeffdabaabazzdfeffd";
+function count(str) {
+  const o = {};
+  // iterate over str
+  // check current character is a property of `o`?
+  // `yes` prop' value += ` or add prop + value of 1
+
+  for (let i = 0; i < str.length; i++) {
+    Object.hasOwn(o, str[i]) ? (o[str[i]] += 1) : (o[str[i]] = 1);
+  }
+
+  console.log(o);
+  return o;
+}
+
+// count(str);
+
 // contains all letters: 'abcdefghijklmnopqrstuvwxyz' ?
 // is it a panagram?
 
@@ -7,7 +349,7 @@ function isPanagram(str) {
   return aToz.every((x) => str.includes(x));
 }
 
-console.log(isPanagram("pants bcdefghijklm oqr tuvwx yz"));
+// console.log(isPanagram("pants bcdefghijklm oqr tuvwx yz"));
 
 // alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -73,7 +415,7 @@ function findNeedle(arr) {
     function params:
     p0, percent, aug (inhabitants coming or leaving each year), p (population to equal or surpass)
 
-    p0 => startting population
+    p0 => chartting population
     percent = > percentage increase per year
     aug => increase per year from newcomers
     p => population to surpass
@@ -122,7 +464,7 @@ function nbYear(p0, percent, aug, p) {
     ...etc.
   
 
-    Calculate the sum of the numbers in the nth row of this triangle (starting at index 1)
+    Calculate the sum of the numbers in the nth row of this triangle (charting at index 1)
 */
 
 function rowSumOddNumbers(n) {
@@ -370,7 +712,7 @@ function squareDigits(num) {
 
 // console.log(squareDigits(9119));
 
-//"double  spaces"
+//"double  numSpaces"
 function reverseWords(str) {
   return str
     .split(" ")
@@ -556,20 +898,20 @@ function points(games) {
     if x = y: 1 point (tie)
 */
 
-points(["1:0", "2:0", "3:0", "4:0", "2:1", "1:3", "1:4", "2:3", "2:4", "3:4"]);
+// points(["1:0", "2:0", "3:0", "4:0", "2:1", "1:3", "1:4", "2:3", "2:4", "3:4"]);
 
 // great the boss or guest?
 function greet(name, owner) {
   return name === owner ? "Hello boss" : "Hello guest";
 }
 
-greet("Dave", "Dave");
+// greet("Dave", "Dave");
 
 function booleanToString(b) {
   return b.toString();
 }
 
-booleanToString(true);
+// booleanToString(true);
 
 // array of words to sentence
 function smash(words) {
@@ -587,7 +929,7 @@ function century(y) {
 // reverse a string
 // function solution(str) {
 //   let arr = [];
-//   // start at the last letter of the string and count backwards
+//   // chart at the last letter of the string and count backwards
 //   for (let i = str.length - 1; i >= 0; i--) {
 //     //push the current letter to the end of the array
 //     arr.push(str[i]);
