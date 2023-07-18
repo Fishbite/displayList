@@ -1,11 +1,29 @@
 // ****** map, filter, reduce START ******
+
+//  return the factorial using `map() fill() reduce()`
+function factorial(n) {
+  return (
+    new Array(n) // [`n` empty slots]
+      .fill(null) // [null, null, null, null, null, null]
+      // must fill array or else: Uncaught TypeError: reduce of empty array
+      //with no initial value. NB: we could use .fill() without null
+      // the array would then be filled with `undefined`
+      .map((currVal, i) => i + 1) // [1,2,3,4,5,6] this is now the array
+      // that will be processed by `reduce()`:
+      .reduce((acc, curr) => acc * curr) // 1*2*3*4*5*6 => 720
+  );
+}
+console.log(factorial(6)); // 720
+
 // return the first and last letters of each word with the number
 // of letters between them i.e. "good" = "g2d"
+// ignore words of less than 4 characters
 
 function Numeronyms(str) {
   // re-useable function. Could have imported this as a module
   // using it makes our `return` code more readable
   const createEnumeronym = (word) =>
+    // 1st ltr of the word + word length - 2 + last letter of the word
     word[0] + (word.length - 2) + word[word.length - 1];
 
   return str
@@ -13,9 +31,9 @@ function Numeronyms(str) {
     .map((v) => (v.length >= 4 ? createEnumeronym(v) : v))
     .join(" "); //"E3y d7r l3s to mix k8s and j8t"
 }
-console.log(
-  Numeronyms("Every developer likes to mix kubernetes and javascript")
-);
+// console.log(
+//   Numeronyms("Every developer likes to mix kubernetes and javascript")
+// );
 
 // https://www.crocoder.dev/blog/map-filter-reduce-exercises/
 
