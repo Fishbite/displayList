@@ -1,5 +1,178 @@
 // ****** map, filter, reduce START ******
 
+/*
+    calculate the average salary for each department and then 
+    return an array of objects containing only the departments that 
+    have an average salary above 65000.
+*/
+
+/*
+    use map, filter, and reduce to calculate the average price of 
+    products in each category, and then return an array of objects 
+    containing only the categories that have an average price above 
+    50.
+*/
+const products = [
+  { name: "Product 1", price: 20, category: "Electronics" },
+  { name: "Product 2", price: 30, category: "Clothes" },
+  { name: "Product 3", price: 40, category: "Electronics" },
+  { name: "Product 4", price: 40, category: "Clothes" },
+  { name: "Product 5", price: 50, category: "Clothes" },
+  { name: "Product 6", price: 70, category: "Electronics" },
+  { name: "Product 7", price: 80, category: "Clothes" },
+  { name: "Product 8", price: 90, category: "Electronics" },
+  { name: "Product 9", price: 90, category: "Arses" },
+];
+
+function getAvgPricedOver50(arr) {
+  const productsByCategory = arr.reduce((acc, product) => {
+    const category = product.category;
+
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+
+    acc[category].push(product);
+    console.log(acc);
+    return acc; // Object { Electronics: (4) […], Clothes: (4) […] }
+  }, {});
+
+  const avgPriceByCategory = Object.keys(productsByCategory).map((category) => {
+    const sum = productsByCategory[category].reduce(
+      (acc, product) => acc + product.price,
+      0
+    );
+
+    console.log({
+      category: category,
+      avg: sum / productsByCategory[category].length,
+    });
+    return {
+      category: category,
+      avg: sum / productsByCategory[category].length,
+    };
+  });
+
+  return avgPriceByCategory.filter((category) => category.avg > 50);
+}
+
+console.log(getAvgPricedOver50(products));
+
+/*
+    use map, filter, and reduce to calculate the average test score for each 
+    student, and then return an array of objects containing only the 
+    students who have an average score above 90
+*/
+const studentsScores = [
+  { name: "Alice", scores: [90, 85, 92] },
+  { name: "Bob", scores: [75, 80, 85] },
+  { name: "Charlie", scores: [90, 95, 85] },
+  { name: "David", scores: [100, 100, 100] },
+];
+function filterStudentScores(studentsScores, target) {
+  const getStudents = studentsScores
+    .map((student) => {
+      // map iterates over the input array which separates each
+      // object in the array:
+      // console.log(student); // { name: "Alice", scores: [90, 85, 92] }
+
+      // console.log(student.scores);
+      // reduce iterates over the scores to give the sum of values
+      const sum = student.scores.reduce((acc, score) => acc + score);
+
+      // return an object with students name and average score
+      return { name: student.name, average: sum / student.scores.length };
+    })
+    .filter((student) => {
+      return student.average >= target;
+    });
+
+  return getStudents;
+}
+
+// console.log(filterStudentScores(studentsScores, 90));
+
+// Sum of values in an object array
+/*
+    To sum up the values contained in an array of objects, you must supply an initialValue, so that each item passes through your function.
+    */
+const objects = [
+  { x: 1, y: 2 },
+  { x: 2, y: 4 },
+  { x: 3, y: 6 },
+];
+// const objects = [{ x: 1 }, { x: 2 }, { x: 3 }];
+const sumObjects = objects.reduce((acc, curr) => {
+  const y = acc + curr.y;
+  return y;
+}, 0); // init value goes after {} braces
+// console.log(sumObjects);
+
+// const objects = [{ x: 1 }, { x: 2 }, { x: 3 }];
+function sum(arr) {
+  return arr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.x,
+    0 // init value goes after return expression
+  );
+}
+
+// console.log(sum(objects)); // 6
+
+// mdn  example of how `reduce` works with an initial value
+const noInitVal = [15, 16, 17, 18, 19].reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  10
+);
+// console.log(noInitVal);
+
+// mdn  example of how `reduce` works without an initial value
+const MDNarray = [15, 16, 17, 18, 19];
+
+function reducer(accumulator, currentValue, index) {
+  const returns = accumulator + currentValue;
+  console.log(
+    `accumulator: ${accumulator}, currentValue: ${currentValue}, index: ${index}, returns: ${returns}`
+  );
+  return returns;
+}
+// console.log(MDNarray.reduce(reducer));
+
+// return an object in which `key` names equal the
+// values in an array. The `key values` should
+// correspond to the number of times the values
+// exist in the original array:
+/*  The input array:
+    [
+      ["a", "b", "c"],
+      ["c", "d", "f"],
+      ["d", "f", "g"],
+    ]
+
+    The resultant object:
+    {
+    a: 1,
+    b: 1,
+    c: 2,
+    d: 2,
+    f: 2,
+    g: 1,
+  }
+*/
+function countElements(arr) {
+  return arr.flat().reduce((acc, curr) => {
+    acc[curr] ? (acc[curr] += 1) : (acc[curr] = 1);
+
+    return acc;
+  }, {});
+}
+// console.log(
+//   countElements([
+//     ["a", "b", "c"],
+//     ["c", "d", "f"],
+//     ["d", "f", "g"],
+//   ])
+// );
+
 //  return the factorial using `map() fill() reduce()`
 function factorial(n) {
   return (
@@ -13,7 +186,7 @@ function factorial(n) {
       .reduce((acc, curr) => acc * curr) // 1*2*3*4*5*6 => 720
   );
 }
-console.log(factorial(6)); // 720
+// console.log(factorial(6)); // 720
 
 // return the first and last letters of each word with the number
 // of letters between them i.e. "good" = "g2d"
