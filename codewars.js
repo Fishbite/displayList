@@ -3,8 +3,69 @@
 /*
     calculate the average salary for each department and then 
     return an array of objects containing only the departments that 
-    have an average salary above 65000.
+    have an average salary above 65000:
+
+    [
+  { department: 'HR', average: 71666 }
+]
 */
+const employees = [
+  { name: "John", salary: 50000, department: "IT" },
+  { name: "Jane", salary: 60000, department: "HR" },
+  { name: "Bob", salary: 55000, department: "IT" },
+  { name: "Sophie", salary: 75000, department: "HR" },
+  { name: "Mike", salary: 65000, department: "IT" },
+  { name: "Emily", salary: 80000, department: "HR" },
+  { name: "David", salary: 70000, department: "IT" },
+];
+
+function getDepartments(arr, target) {
+  const departments = arr.reduce((acc, employee) => {
+    // console.log(employee);
+
+    const dept = employee.department;
+    // console.log(acc, dept, employee.salary);
+
+    if (!acc[dept]) {
+      acc[dept] = [];
+    }
+    // console.log(acc[dept]);
+
+    acc[dept].push(employee);
+    console.log(acc[dept]);
+
+    return acc; // IMPORTANT to include this!!!
+  }, {}); // IMPORTANT to provide initial value:- {} :-P
+
+  const avgSalaryByDepartment = Object.keys(departments).map((department) => {
+    console.log(
+      departments[department].reduce(
+        (acc, employee) => acc + employee.salary,
+        0
+      )
+    );
+
+    const sum = departments[department].reduce(
+      (acc, employee) => acc + employee.salary,
+      0
+    );
+    console.log(
+      {
+        department: department,
+        avg: sum / departments[department].length,
+      },
+      departments[department].length
+    );
+    return {
+      department: department,
+      avg: sum / departments[department].length,
+    };
+  });
+
+  return avgSalaryByDepartment.filter((department) => department.avg > target);
+}
+
+console.log(getDepartments(employees, 65000));
 
 /*
     use map, filter, and reduce to calculate the average price of 
@@ -25,7 +86,10 @@ const products = [
 ];
 
 function getAvgPricedOver50(arr) {
+  // iterate over each object in the products array (i.e each product)
   const productsByCategory = arr.reduce((acc, product) => {
+    console.log(product);
+    // Object { name: "Product 1", price: 20, category: "Electronics" }
     const category = product.category;
 
     if (!acc[category]) {
@@ -56,7 +120,7 @@ function getAvgPricedOver50(arr) {
   return avgPriceByCategory.filter((category) => category.avg > 50);
 }
 
-console.log(getAvgPricedOver50(products));
+// console.log(getAvgPricedOver50(products));
 
 /*
     use map, filter, and reduce to calculate the average test score for each 
