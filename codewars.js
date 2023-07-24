@@ -4,9 +4,33 @@
 
 Use this function to write to an HTML container.
 It is designed to be used along side functions that return
-an array of objects.
+an array of objects like below:
 
-    argument list:
+Example: a function returns an object:
+Object { Electronics: (4) […], Clothes: (4) […], Arses: (1) […] }​
+
+`Object` contains arrays of other objects:
+Arses: Array [ {…} ]​
+Clothes: Array(4) [ {…}, {…}, {…}, … ]​
+Electronics: Array(4) [ {…}, {…}, {…}, … ]
+
+The Arrays within `Object` contain mmore objects!:
+Arses: Array [ {…} ]
+0: Object { name: "Product 9", price: 90, category: "Arses" }
+
+Clothes: Array(4) [ {…}, {…}, {…}, … ]
+0: Object { name: "Product 2", price: 30, category: "Clothes" }​​
+1: Object { name: "Product 4", price: 40, category: "Clothes" }​​
+2: Object { name: "Product 5", price: 50, category: "Clothes" }​​
+3: Object { name: "Product 7", price: 80, category: "Clothes" }
+
+Electronics: Array(4) [ {…}, {…}, {…}, … ]
+0: Object { name: "Product 1", price: 20, category: "Electronics" }​
+1: Object { name: "Product 3", price: 40, category: "Electronics" }​
+2: Object { name: "Product 6", price: 70, category: "Electronics" }​
+3: Object { name: "Product 8", price: 90, category: "Electronics" }
+
+    The `displayList` function takes an argument list:
     input: array of objects
     HTMLContainerID: DOM element to write the data to
     prefix: a string to prefix the displayed data
@@ -23,6 +47,7 @@ function displayList(input, HTMLContainerID, prefix, prop1, prop2) {
 
   // iterate over the input, which is an array of objects
   // returned by a function
+  // Use a `for of` loop for large data sets instead of `forEach`
   input.forEach((obj) => {
     // create an empty list element
     const listItem = document.createElement("li");
@@ -135,6 +160,7 @@ function getAvgPricedOver50(arr) {
 
     acc[category].push(product);
 
+    // console.log(acc);
     return acc; // Object { Electronics: (4) […], Clothes: (4) […] }
   }, {});
 
@@ -150,7 +176,7 @@ function getAvgPricedOver50(arr) {
     };
   });
 
-  return avgPriceByCategory.filter((category) => category.avg > 50);
+  return avgPriceByCategory.filter((category) => category.avg > 0);
 }
 
 const avgProdPrices = getAvgPricedOver50(products);
@@ -159,7 +185,7 @@ displayList(avgProdPrices, "productCats", "category:", "category", "avg");
 /*
     use map, filter, and reduce to calculate the average test score for each 
     student, and then return an array of objects containing only the 
-    students who have an average score above 90
+    students who have an average score above `target`
 */
 const studentsScores = [
   { name: "Alice", scores: [90, 85, 92] },
