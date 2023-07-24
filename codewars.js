@@ -183,7 +183,7 @@ function filterStudentScores(studentsScores, target) {
   return getStudents;
 }
 
-const studentResults = filterStudentScores(studentsScores, 90);
+const studentResults = filterStudentScores(studentsScores, 50);
 displayList(studentResults, "studentScores", "Student", "name", "average");
 
 // Sum of values in an object array
