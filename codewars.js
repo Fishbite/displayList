@@ -1,5 +1,47 @@
 // ****** map, filter, reduce START ******
 
+/* ****** The `displayList` Function ******
+
+Use this function to write to an HTML container.
+It is designed to be used along side functions that return
+an array of objects.
+
+    argument list:
+    input: array of objects
+    HTMLContainerID: DOM element to write the data to
+    prefix: a string to prefix the displayed data
+    prop1: property name to extract the value from
+    prop2: property name to extract the value (a number) from
+*/
+function displayList(input, HTMLContainerID, prefix, prop1, prop2) {
+  // get the html element to use for the output
+  const container = document.getElementById(HTMLContainerID);
+  console.log(container);
+
+  // create an unordered list
+  const resultList = document.createElement("ul");
+
+  // iterate over the input, which is an array of objects
+  // returned by a function
+  input.forEach((obj) => {
+    // create an empty list element
+    const listItem = document.createElement("li");
+
+    // Extract the property values based on the provided property names
+    const value1 = obj[prop1];
+    const value2 = obj[prop2].toFixed();
+
+    // use the first two elements of the object to create the list text content
+    listItem.textContent = `${prefix} ${value1}: ${value2}`;
+
+    // append the list item to the result list
+    resultList.appendChild(listItem);
+  });
+
+  // finally, append the result list to the HTML container
+  return container.appendChild(resultList);
+}
+
 /*
     calculate the average salary for each department and then 
     return an array of objects containing only the departments that 
@@ -49,43 +91,6 @@ function getDepartments(arr, target) {
   );
 
   return result;
-}
-
-// If a function returns an array of objects, use this
-// function to display the results in an HTML element
-//  The function takes
-// an input: an array of objects of which it uses the first two
-// for data output
-// an HTML container ID to output the data to
-// A string to use as a prefix to each set of data and then
-// 2 string names of the property values to extract from the object
-function displayList(input, HTMLContainerID, prefix, prop1, prop2) {
-  // get the html element to use for the output
-  const container = document.getElementById(HTMLContainerID);
-  console.log(container);
-
-  // create an unordered list
-  const resultList = document.createElement("ul");
-
-  // iterate over the input, which is an array of objects
-  // returned by a function
-  input.forEach((obj) => {
-    // create an empty list element
-    const listItem = document.createElement("li");
-
-    // Extract the property values based on the provided property names
-    const value1 = obj[prop1];
-    const value2 = obj[prop2].toFixed();
-
-    // use the first two elements of the object to create the list text content
-    listItem.textContent = `${prefix} ${value1}: ${value2}`;
-
-    // append the list item to the result list
-    resultList.appendChild(listItem);
-  });
-
-  // finally, append the result list to the HTML container
-  return container.appendChild(resultList);
 }
 
 const depts = getDepartments(employees, 55000);
