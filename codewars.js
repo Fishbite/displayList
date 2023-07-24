@@ -21,51 +21,84 @@ const employees = [
 
 function getDepartments(arr, target) {
   const departments = arr.reduce((acc, employee) => {
-    // console.log(employee);
-
     const dept = employee.department;
-    // console.log(acc, dept, employee.salary);
 
     if (!acc[dept]) {
       acc[dept] = [];
     }
-    // console.log(acc[dept]);
 
     acc[dept].push(employee);
-    console.log(acc[dept]);
 
     return acc; // IMPORTANT to include this!!!
   }, {}); // IMPORTANT to provide initial value:- {} :-P
 
   const avgSalaryByDepartment = Object.keys(departments).map((department) => {
-    console.log(
-      departments[department].reduce(
-        (acc, employee) => acc + employee.salary,
-        0
-      )
-    );
-
     const sum = departments[department].reduce(
       (acc, employee) => acc + employee.salary,
       0
     );
-    console.log(
-      {
-        department: department,
-        avg: sum / departments[department].length,
-      },
-      departments[department].length
-    );
+
     return {
       department: department,
       avg: sum / departments[department].length,
     };
   });
 
-  return avgSalaryByDepartment.filter((department) => department.avg > target);
+  const result = avgSalaryByDepartment.filter(
+    (department) => department.avg > target
+  );
+
+  return result;
 }
 
-console.log(getDepartments(employees, 65000));
+// If a function returns an array of objects, use this
+// function to display the results in an HTML element
+//  The function takes
+// an input: an array of objects of which it uses the first two
+// for data output
+// an HTML container ID to output the data to
+// A string to use as a prefix to each set of data and then
+// 2 string names of the property values to extract from the object
+function displayList(input, HTMLContainerID, prefix, prop1, prop2) {
+  // get the html element to use for the output
+  const container = document.getElementById(HTMLContainerID);
+  console.log(container);
+
+  // create an unordered list
+  const resultList = document.createElement("ul");
+
+  // iterate over the input, which is an array of objects
+  // returned by a function
+  input.forEach((obj) => {
+    // create an empty list element
+    const listItem = document.createElement("li");
+
+    // Extract the property values based on the provided property names
+    const value1 = obj[prop1];
+    const value2 = obj[prop2].toFixed();
+
+    // use the first two elements of the object to create the list text content
+    listItem.textContent = `${prefix} ${value1}: ${value2}`;
+
+    // append the list item to the result list
+    resultList.appendChild(listItem);
+  });
+
+  // finally, append the result list to the HTML container
+  return container.appendChild(resultList);
+}
+
+const depts = getDepartments(employees, 55000);
+
+/* ****** The `displayList` Function ******
+    argument list:
+    input: array of objects
+    HTMLContainerID: DOM element to write the data to
+    prefix: a string to prefix the displayed data
+    prop1: property name to extract the value from
+    prop2: property name to extract the value (a number) from
+*/
+displayList(depts, "avgSalaries", "Dept:", "department", "avg");
 
 /*
     use map, filter, and reduce to calculate the average price of 
@@ -88,7 +121,6 @@ const products = [
 function getAvgPricedOver50(arr) {
   // iterate over each object in the products array (i.e each product)
   const productsByCategory = arr.reduce((acc, product) => {
-    console.log(product);
     // Object { name: "Product 1", price: 20, category: "Electronics" }
     const category = product.category;
 
@@ -97,7 +129,7 @@ function getAvgPricedOver50(arr) {
     }
 
     acc[category].push(product);
-    console.log(acc);
+
     return acc; // Object { Electronics: (4) […], Clothes: (4) […] }
   }, {});
 
@@ -107,10 +139,6 @@ function getAvgPricedOver50(arr) {
       0
     );
 
-    console.log({
-      category: category,
-      avg: sum / productsByCategory[category].length,
-    });
     return {
       category: category,
       avg: sum / productsByCategory[category].length,
@@ -120,7 +148,8 @@ function getAvgPricedOver50(arr) {
   return avgPriceByCategory.filter((category) => category.avg > 50);
 }
 
-// console.log(getAvgPricedOver50(products));
+const avgProdPrices = getAvgPricedOver50(products);
+displayList(avgProdPrices, "productCats", "category:", "category", "avg");
 
 /*
     use map, filter, and reduce to calculate the average test score for each 
@@ -154,7 +183,8 @@ function filterStudentScores(studentsScores, target) {
   return getStudents;
 }
 
-// console.log(filterStudentScores(studentsScores, 90));
+const studentResults = filterStudentScores(studentsScores, 90);
+displayList(studentResults, "studentScores", "Student", "name", "average");
 
 // Sum of values in an object array
 /*
