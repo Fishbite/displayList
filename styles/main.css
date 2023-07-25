@@ -24,6 +24,7 @@ body {
   font-size: 1.125rem;
   letter-spacing: 0.05rem;
   padding: 0.25rem;
+  max-width: 66ch;
 }
 
 .list-container {
@@ -38,6 +39,8 @@ li {
 }
 
 footer {
+  color: antiquewhite;
+  font-size: 0.75rem;
   padding: 2.5rem 0 1rem;
   text-align: center;
 }
