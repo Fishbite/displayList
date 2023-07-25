@@ -25,6 +25,7 @@ body {
   letter-spacing: 0.05rem;
   padding: 0.25rem;
   max-width: 66ch;
+  text-align: justify;
 }
 
 .list-container {
