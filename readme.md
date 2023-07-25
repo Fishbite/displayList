@@ -73,5 +73,3 @@ This will render the following output in the HTML container with the ID "result-
 - Department: HR, Average Salary: 71666
 
 ---
-
-Feel free to customize this `README.md` according to your specific project's needs. You can add more information, such as a "License" section, a "Contributing" section, or any other relevant details that would help users understand and use the `displayList` function effectively.
