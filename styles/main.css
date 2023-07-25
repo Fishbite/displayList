@@ -49,3 +49,8 @@ footer a {
   color: antiquewhite;
   padding-left: 1rem;
 }
+
+footer a:hover {
+  color: rgb(255, 161, 39);
+  padding-left: 1rem;
+}
