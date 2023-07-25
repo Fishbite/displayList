@@ -1,7 +1,3 @@
-Sure, I'd be happy to help you create a `README.md` document for the `displayList` function. Below is a sample `README.md` with information about the function, its purpose, usage, and examples:
-
----
-
 # displayList Function
 
 The `displayList` function is a utility function that takes an array of objects and displays the specified property values in an HTML element. It provides a convenient way to present data on a web page, especially when working with arrays of objects returned by other functions.
