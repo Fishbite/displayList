@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: rgb(10, 8, 6);
+}
+
+body {
+  margin: 0 1rem;
+  line-height: 1.5;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
+
+.para {
+  color: rgb(182, 178, 143);
+  font-size: 1.125rem;
+  letter-spacing: 0.05rem;
+  padding: 0.25rem;
+}
+
+.list-container {
+  color: burlywood;
+  padding: 0.25rem;
+}
+.list-container,
+li {
+  list-style: none;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}

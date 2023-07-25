@@ -4,19 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>codewars</title>
+    <link rel="stylesheet" href=".\styles\main.css" />
   </head>
   <body style="background-color: darkslategray">
-    <h1>Code Wars!</h1>
+    <h1>Display List</h1>
+    <p class="para">
+      <i>An easy way to display data returned by a function</i>
+    </p>
+    <p class="para">
+      This updated version of the `displayList` function is excellent! Now, with
+      the additional parameters `prop1` and `prop2`, you can use the function
+      with different objects and extract the specific properties you need to
+      display
+    </p>
+    <p class="para">
+      Overall, this implementation is clear and well-structured, making it easy
+      to work with different datasets and display the results in the desired
+      HTML container. If you have any questions or need assistance, feel free to
+      ask. Happy coding!
+    </p>
 
-    <h3>Filtered Average Salaries:</h3>
-    <div id="avgSalaries" class="result"></div>
+    <!-- Lists START -->
 
-    <h3>Filtered Product Categories Prices:</h3>
-    <div id="productCats"></div>
+    <h2>Average Salaries:</h2>
+    <div id="avgSalaries" class="list-container"></div>
 
-    <h3>Filtered Student Scores:</h3>
-    <div id="studentScores"></div>
+    <h2>Product Categories Prices:</h2>
+    <div id="productCats" class="list-container"></div>
 
-    <script src=".\codewars.js"></script>
+    <h2>Student Scores:</h2>
+    <div id="studentScores" class="list-container"></div>
+
+    <!-- Lists END -->
+
+    <footer>
+      <i> ...taking the pressure out of building apps.</i></br>
+      <i>fishbite 2023</i>
+    </footer>
+
+    <script src=".\displayList.js"></script>
   </body>
 </html>
